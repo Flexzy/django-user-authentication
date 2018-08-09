@@ -1,0 +1,45 @@
+{% extends 'authentication/base_login.html' %}
+{% load staticfiles %}
+
+{% block  content %}
+    <div class="login">
+        <div class="on_top">
+            <div class="container">
+                <div class="row" id="profile_cont">
+                    <div class="col-md-8 col-md-offset-2" id="profile">
+                        {% include "authentication/includes/nav.html" %}
+                        {% if user.is_authenticated %}
+                            <div class="row" style="padding: 20px">
+                                <div class="col-sm-4">
+                                    <img src="{% static 'authentication/img/img.svg' %}" alt="{% static 'authentication/img/img.svg' %}" width="160px" height="160px" class="img-rounded">
+                                    
+                                    <h4 class="small">STUFF</h4>
+                                    
+                                </div>
+                                <div class="col-sm-8">
+                                    <h5 class="">Edit Profile</h5><hr/>
+                                    <form action="{% url 'edit' %}" method="POST" >{% csrf_token %}
+                                        {% for input in form %}
+                                            <div class="form-group">
+                                                {{ input }}
+                                                {{ input.help_text|safe }}
+                                            </div>
+                                        {% endfor %}
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-brown">Update info</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="jumbotron text-center">
+                                <h2 class="display-4">404 Error !</h2>
+                                <p class="lead">Access denied. You don't have the credentials to access this page</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'authentication/base_login.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="login">
+    
+    <div class="on_top">
+        <div class="container">
+            <h3 class="text-center login_head">User Registration Form</h3>
+    
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4 v_align">
+                    <form class="register_form" method="POST" action="{% url 'register' %}">{% csrf_token %}
+                        {% for input in form %}
+                        <div class="form-group">
+                            {{ input }}
+                            {{ input.help_text|safe }}
+                        </div>
+                        {% endfor %}
+                        <!--{{ form.as_p }}-->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary l-btn">Register</button>
+                        </div>
+                        <p class="text-center"><a href="{% url 'login' %}">Already have an account? Click here! to Login</a></p>
+                        
+                        {% for message in messages %}
+                            <div class="alert alert-danger" id="c_alert" role="alert"><strong>{{message}}</strong></div>
+                        {% endfor %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
